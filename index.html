@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>StudyScout — JMU study spot busyness</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to spots</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">📍</span>
+          <div>
+            <p class="brand-title">StudyScout</p>
+            <p class="brand-sub">James Madison University</p>
+          </div>
+        </div>
+        <p class="clock" id="clock" aria-live="polite"></p>
+      </div>
+
+      <div class="wrap hero">
+        <h1>How busy are JMU study spots?</h1>
+        <p class="lede">
+          Take a look at how busy study spots are right now, then choose the one that fits your study session.
+        </p>
+        <div class="pulse-card" id="campus-pulse" aria-live="polite"></div>
+      </div>
+    </header>
+
+    <main id="main" class="wrap main">
+      <section class="panel" aria-label="Filters">
+        <div class="filters">
+          <label class="field grow">
+            <span class="label">Search</span>
+            <input type="search" id="filter-search" placeholder="Library, East Campus, quiet…" autocomplete="off" />
+          </label>
+          <label class="field">
+            <span class="label">Goal</span>
+            <select id="filter-category"></select>
+          </label>
+          <label class="field">
+            <span class="label">Noise</span>
+            <select id="filter-noise"></select>
+          </label>
+          <label class="field">
+            <span class="label">Busyness</span>
+            <select id="filter-busy">
+              <option value="any">Any</option>
+              <option value="calm">Mostly calm (≤45%)</option>
+              <option value="mod">Moderate or less (≤70%)</option>
+            </select>
+          </label>
+        </div>
+        <div class="sort-row">
+          <span class="label">Sort</span>
+          <div class="sort-btns" id="sort-btns" role="group" aria-label="Sort spots"></div>
+        </div>
+      </section>
+
+      <div class="results-head">
+        <h2>Spots</h2>
+        <p class="count" id="results-count"></p>
+      </div>
+
+      <div class="grid" id="spot-grid"></div>
+      <div class="empty" id="empty-state" hidden>
+        <p>No spots match. Try loosening filters.</p>
+        <button type="button" class="btn secondary" id="reset-filters">Reset filters</button>
+      </div>
+
+    </main>
+
+    <footer class="site-footer wrap">
+      <p>Built for JMU students to make finding a study spot easier.</p>
+    </footer>
+
+    <div class="modal-backdrop" id="modal-backdrop" hidden>
+      <div
+        class="modal"
+        id="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        tabindex="-1"
+      ></div>
+    </div>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
