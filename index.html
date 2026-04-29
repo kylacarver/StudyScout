@@ -4,6 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>StudyScout — JMU study spot busyness</title>
+    <meta
+      name="description"
+      content="StudyScout helps JMU students find study spots with busyness estimates and live student ratings."
+    />
+    <meta property="og:title" content="StudyScout - JMU Study Spots" />
+    <meta
+      property="og:description"
+      content="Find the best JMU study spot with our busyness estimate and student-submitted ratings."
+    />
+    <meta property="og:type" content="website" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -11,14 +21,31 @@
 
     <header class="site-header">
       <div class="wrap header-inner">
-        <div class="brand">
-          <span class="brand-mark" aria-hidden="true">📍</span>
-          <div>
-            <p class="brand-title">StudyScout</p>
-            <p class="brand-sub">James Madison University</p>
-          </div>
+        <div class="brand-wrap">
+          <a class="brand" href="index.html" style="text-decoration: none; color: inherit">
+            <span class="brand-mark" aria-hidden="true">📍</span>
+            <div>
+              <p class="brand-title">StudyScout</p>
+              <p class="brand-sub">James Madison University</p>
+            </div>
+          </a>
+          <button type="button" class="info-btn" id="info-btn" aria-label="Open info" aria-haspopup="dialog" aria-controls="info-modal">
+            <span class="info-glyph" aria-hidden="true">i</span>
+          </button>
         </div>
-        <p class="clock" id="clock" aria-live="polite"></p>
+        <div class="header-actions">
+          <nav class="header-auth" aria-label="Account">
+            <div id="header-auth-guest" class="header-auth-guest">
+              <a href="login.html" class="header-signin">Sign in</a>
+              <span class="header-auth-sep" aria-hidden="true"></span>
+              <a href="login.html#signup" class="btn primary header-signup">Sign up</a>
+            </div>
+            <div id="header-auth-user" class="header-auth-user" hidden>
+              <span class="header-user-email" id="header-user-email" title=""></span>
+              <button type="button" class="btn secondary" id="logout-btn">Log out</button>
+            </div>
+          </nav>
+        </div>
       </div>
 
       <div class="wrap hero">
@@ -31,44 +58,31 @@
     </header>
 
     <main id="main" class="wrap main">
-      <section class="panel" aria-label="Filters">
-        <div class="filters">
-          <label class="field grow">
-            <span class="label">Search</span>
-            <input type="search" id="filter-search" placeholder="Library, East Campus, quiet…" autocomplete="off" />
-          </label>
-          <label class="field">
-            <span class="label">Goal</span>
-            <select id="filter-category"></select>
-          </label>
-          <label class="field">
-            <span class="label">Noise</span>
-            <select id="filter-noise"></select>
-          </label>
-          <label class="field">
-            <span class="label">Busyness</span>
-            <select id="filter-busy">
-              <option value="any">Any</option>
-              <option value="calm">Mostly calm (≤45%)</option>
-              <option value="mod">Moderate or less (≤70%)</option>
-            </select>
-          </label>
-        </div>
-        <div class="sort-row">
-          <span class="label">Sort</span>
-          <div class="sort-btns" id="sort-btns" role="group" aria-label="Sort spots"></div>
-        </div>
-      </section>
-
       <div class="results-head">
         <h2>Spots</h2>
-        <p class="count" id="results-count"></p>
+        <div class="results-toolbar">
+          <div class="sort-toolbar" role="group" aria-label="Sort spots">
+            <label class="field sort-toolbar-field">
+              <span class="label">Sort by</span>
+              <select id="sort-by" class="sort-by-select">
+                <option value="noise">Noise</option>
+                <option value="busy" selected>Activity</option>
+                <option value="our">Our rating</option>
+                <option value="student">Student rating</option>
+              </select>
+            </label>
+            <div class="sort-order" role="group" aria-label="Sort order">
+              <button type="button" class="sort-order-btn" id="sort-asc" aria-pressed="true" title="Ascending">Ascending</button>
+              <button type="button" class="sort-order-btn" id="sort-desc" aria-pressed="false" title="Descending">Descending</button>
+            </div>
+          </div>
+          <p class="count" id="results-count"></p>
+        </div>
       </div>
 
       <div class="grid" id="spot-grid"></div>
       <div class="empty" id="empty-state" hidden>
-        <p>No spots match. Try loosening filters.</p>
-        <button type="button" class="btn secondary" id="reset-filters">Reset filters</button>
+        <p>No spots to show.</p>
       </div>
 
     </main>
@@ -87,7 +101,30 @@
         tabindex="-1"
       ></div>
     </div>
+    <div class="info-backdrop" id="info-backdrop" hidden>
+      <div class="info-modal" id="info-modal" role="dialog" aria-modal="true" aria-labelledby="info-modal-title">
+        <button type="button" class="info-close" id="info-close" aria-label="Close">&times;</button>
+        <h2 id="info-modal-title">About StudyScout</h2>
+        <p>
+          StudyScout is currently in its early development. Look out for new features to be released in upcoming
+          updates.
+        </p>
+        <p>
+          Campus pulse and the other ratings shown are estimations. We are actively working to make them more accurate
+          and base them on actual live data. In the meantime, we thank users for their contributions and ratings.
+        </p>
+        <p>
+          Good luck on finals, go dukes!
+        </p>
+      </div>
+    </div>
 
+    <script>
+      window.STUDYSCOUT_SUPABASE_URL = window.STUDYSCOUT_SUPABASE_URL || "https://qrzbgmirbznrfwvhwlhu.supabase.co";
+      window.STUDYSCOUT_SUPABASE_ANON_KEY = window.STUDYSCOUT_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFyemJnbWlyYnpucmZ3dmh3bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc0MjE2MzYsImV4cCI6MjA5Mjk5NzYzNn0.G9NQAZhsRWfyobDWgTF1jOtSmVJrGQT-iIJMNp572ZQ";
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js" defer></script>
     <script src="app.js" defer></script>
   </body>
 </html>

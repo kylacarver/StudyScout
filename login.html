@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign in — StudyScout</title>
+    <meta name="description" content="Sign in or create a StudyScout account to submit student ratings." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="login-body">
+    <a class="skip-link" href="#login-main">Skip to form</a>
+
+    <header class="site-header login-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="index.html" style="text-decoration: none; color: inherit">
+          <span class="brand-mark" aria-hidden="true">📍</span>
+          <div>
+            <p class="brand-title">StudyScout</p>
+            <p class="brand-sub">James Madison University</p>
+          </div>
+        </a>
+        <a href="index.html" class="btn btn-ghost">← Back to spots</a>
+      </div>
+    </header>
+
+    <main id="login-main" class="wrap login-main">
+      <div class="login-card panel">
+        <h1 class="login-title" id="login-heading">Sign in</h1>
+        <p class="small muted login-lede" id="login-lede">Use your email or Google to access your account.</p>
+
+        <button type="button" class="btn google-btn" id="google-signin-btn">
+          <span class="google-icon" aria-hidden="true">G</span>
+          Continue with Google
+        </button>
+
+        <div class="login-divider" role="presentation"><span>or</span></div>
+
+        <form class="login-form" id="form-signin" autocomplete="on">
+          <label class="field">
+            <span class="label">Email</span>
+            <input type="email" name="email" id="signin-email" required placeholder="you@example.com" autocomplete="email" />
+          </label>
+          <label class="field">
+            <span class="label">Password</span>
+            <input type="password" name="password" id="signin-password" required minlength="6" autocomplete="current-password" />
+          </label>
+          <button type="submit" class="btn primary" style="width: 100%">Sign in</button>
+        </form>
+
+        <form class="login-form" id="form-signup" hidden autocomplete="on">
+          <label class="field">
+            <span class="label">Email</span>
+            <input type="email" name="email" id="signup-email" required placeholder="you@example.com" autocomplete="email" />
+          </label>
+          <label class="field">
+            <span class="label">Password</span>
+            <input type="password" name="password" id="signup-password" required minlength="6" autocomplete="new-password" />
+          </label>
+          <button type="submit" class="btn primary" style="width: 100%">Create account</button>
+        </form>
+
+        <p class="small muted" id="auth-message" role="status"></p>
+
+        <p class="login-switch">
+          <span id="switch-to-signup-wrap">
+            New here?
+            <button type="button" class="btn-link" id="show-signup">Create an account</button>
+          </span>
+          <span id="switch-to-signin-wrap" hidden>
+            Already have an account?
+            <button type="button" class="btn-link" id="show-signin">Sign in</button>
+          </span>
+        </p>
+      </div>
+    </main>
+
+    <footer class="site-footer wrap">
+      <p>Built for JMU students to make finding a study spot easier.</p>
+    </footer>
+
+    <script>
+      window.STUDYSCOUT_SUPABASE_URL = window.STUDYSCOUT_SUPABASE_URL || "https://qrzbgmirbznrfwvhwlhu.supabase.co";
+      window.STUDYSCOUT_SUPABASE_ANON_KEY = window.STUDYSCOUT_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFyemJnbWlyYnpucmZ3dmh3bGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc0MjE2MzYsImV4cCI6MjA5Mjk5NzYzNn0.G9NQAZhsRWfyobDWgTF1jOtSmVJrGQT-iIJMNp572ZQ";
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabaseClient.js" defer></script>
+    <script src="login.js" defer></script>
+  </body>
+</html>
